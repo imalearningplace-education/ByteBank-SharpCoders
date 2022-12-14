@@ -1,4 +1,6 @@
-﻿namespace ByteBank1 {
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace ByteBank1 {
 
     public class Program {
 
@@ -17,15 +19,56 @@
             Console.Write("Digite o cpf: ");
             cpfs.Add(Console.ReadLine());
             Console.Write("Digite o nome: ");
-            titulares.Add("Insira a senha: ");
+            titulares.Add(Console.ReadLine());
+            Console.Write("Digite a senha: ");
             senhas.Add(Console.ReadLine());
             saldos.Add(0);
         }
 
+        static void DeletarUsuario(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos) {
+            Console.Write("Digite o cpf: ");
+            string cpfParaDeletar = Console.ReadLine();
+            int indexParaDeletar = cpfs.FindIndex(cpf => cpf == cpfParaDeletar);
+          
+            if(indexParaDeletar == -1) {
+                Console.WriteLine("Não foi possível deletar esta Conta");
+                Console.WriteLine("MOTIVO: Conta não encontrada.");
+            }
+
+            cpfs.Remove(cpfParaDeletar);
+            titulares.RemoveAt(indexParaDeletar);
+            senhas.RemoveAt(indexParaDeletar);
+            saldos.RemoveAt(indexParaDeletar);
+
+            Console.WriteLine("Conta deletada com sucesso");
+        }
+
         static void ListarTodasAsContas(List<string> cpfs, List<string> titulares, List<double> saldos) {
             for(int i = 0; i < cpfs.Count; i++) {
-                Console.WriteLine($"CPF = {cpfs[i]} | Titular = {titulares[i]} | Saldo = R${saldos[i]:F2}");
+                ApresentaConta(i, cpfs, titulares, saldos);
             }
+        }
+
+        static void ApresentarUsuario(List<string> cpfs, List<string> titulares, List<double> saldos) {
+            Console.Write("Digite o cpf: ");
+            string cpfParaApresentar = Console.ReadLine();
+            int indexParaApresentar = cpfs.FindIndex(cpf => cpf == cpfParaApresentar);
+
+            if (indexParaApresentar == -1) {
+                Console.WriteLine("Não foi possível apresentar esta Conta");
+                Console.WriteLine("MOTIVO: Conta não encontrada.");
+            }
+
+            ApresentaConta(indexParaApresentar, cpfs, titulares, saldos);
+        }
+
+        static void ApresentarValorAcumulado(List<double> saldos) {
+            Console.WriteLine($"Total acumulado no banco: {saldos.Sum()}");
+            // saldos.Sum(); ou .Agregatte(0.0, (x, y) => x + y)
+        }
+
+        static void ApresentaConta( int index, List<string> cpfs, List<string> titulares, List<double> saldos) {
+            Console.WriteLine($"CPF = {cpfs[index]} | Titular = {titulares[index]} | Saldo = R${saldos[index]:F2}");
         }
 
         public static void Main(string[] args) {
@@ -52,8 +95,14 @@
                     case 1:
                         RegistrarNovoUsuario(cpfs, titulares, senhas, saldos);
                         break;
+                    case 2:
+                        DeletarUsuario(cpfs, titulares, senhas, saldos);
+                        break;
                     case 3:
                         ListarTodasAsContas(cpfs, titulares, saldos);
+                        break;
+                    case 4:
+                        ApresentarUsuario(cpfs, titulares, saldos);
                         break;
                 }
 
