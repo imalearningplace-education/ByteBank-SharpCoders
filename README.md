@@ -23,7 +23,7 @@ Mais instruções sobre o envio para o youtube estarão em vídeo complementar.
 
 ## Entrega da etapa
 
-Os últimos commits e a entrega do link para o vídeo devem ser feitos até sexta 09/01/22.
+Os últimos commits e a entrega do link para o vídeo devem ser feitos até sexta 06/01/22.
 
 -----
 
